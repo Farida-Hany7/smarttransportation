@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>docker-compose.yml</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #5f826b; font-style: italic;}
+.s5 { color: #bcbec4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+docker-compose.yml</font>
+</center></td></tr></table>
+<pre><span class="s0">version</span><span class="s1">: </span><span class="s3">'3.9'</span>
+
+<span class="s0">services</span><span class="s1">:</span>
+  <span class="s4"># ── Console / CLI demo ──────────────────────────────────────────────────</span>
+  <span class="s0">cairo-transport</span><span class="s1">:</span>
+    <span class="s0">build</span><span class="s1">: </span><span class="s5">.</span>
+    <span class="s0">container_name</span><span class="s1">: </span><span class="s5">cairo-transport-system</span>
+    <span class="s0">stdin_open</span><span class="s1">: </span><span class="s5">true   </span><span class="s4"># keep STDIN open for interactive mode</span>
+    <span class="s0">tty</span><span class="s1">: </span><span class="s5">true</span>
+    <span class="s4"># Run the full automated demo by default.</span>
+    <span class="s4"># To enter interactive menu: docker compose run cairo-transport interactive</span>
+    <span class="s0">command</span><span class="s1">: [</span><span class="s3">&quot;--auto&quot;</span><span class="s1">]</span>
+
+  <span class="s4"># ── Web visualization (serve the HTML dashboard via nginx) ───────────────</span>
+  <span class="s0">cairo-web</span><span class="s1">:</span>
+    <span class="s0">image</span><span class="s1">: </span><span class="s5">nginx:alpine</span>
+    <span class="s0">container_name</span><span class="s1">: </span><span class="s5">cairo-transport-web</span>
+    <span class="s0">ports</span><span class="s1">:</span>
+      <span class="s1">- </span><span class="s3">&quot;8080:80&quot;</span>
+    <span class="s0">volumes</span><span class="s1">:</span>
+      <span class="s1">- </span><span class="s5">./web:/usr/share/nginx/html:ro</span>
+    <span class="s0">restart</span><span class="s1">: </span><span class="s5">unless-stopped</span>
+</pre>
+</body>
+</html>

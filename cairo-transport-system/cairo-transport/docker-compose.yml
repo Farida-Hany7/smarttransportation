@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  # ── Console / CLI demo ──────────────────────────────────────────────────
+  cairo-transport:
+    build: .
+    container_name: cairo-transport-system
+    stdin_open: true   # keep STDIN open for interactive mode
+    tty: true
+    # Run the full automated demo by default.
+    # To enter interactive menu: docker compose run cairo-transport interactive
+    command: ["--auto"]
+
+  # ── Web visualization (serve the HTML dashboard via nginx) ───────────────
+  cairo-web:
+    image: nginx:alpine
+    container_name: cairo-transport-web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./web:/usr/share/nginx/html:ro
+    restart: unless-stopped
